@@ -182,8 +182,15 @@ if __name__ == "__main__":
 
 Feel free to submit pull requests or open issues if you find any bugs or have suggestions for improvements.
 
+### Credits
+- [Volkan Kücükbudak //NCF](https://gihub.com/volkansah)
+-  Become a Sponsor: [Link to my sponsorship page](https://github.com/sponsors/volkansah)
+- :star: my projects: Starring projects on GitHub helps increase their visibility and can help others find my work. 
+- Follow me: Stay updated with my latest projects and releases.
+- [Source of this resposerity](https://github.com/VolkanSah/Twitter-X-AINewsBot)
+
 ## License
-This project is licensed under the Fuck Elon Musk License - In your Face , Bro, In your Face!
+This project is licensed under the "Fuck Elon Musk" License - In your Face , Bro, In your Face!
 
 ### Acknowledgements
 
