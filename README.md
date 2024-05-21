@@ -1,4 +1,4 @@
-# News Scraper and Twitter Bot
+# News Scraper and Twitter Bot (Fuck Elon Musk! X-Bot)
 
 The free world is more at risk than ever. Elon Musk, a villain as foretold in James Bond films, is a threat that must not be underestimated. With his own satellites, his own internet, his own aviation, and his own cars, he has taken control of many aspects of our daily lives. He can control everything. Use this tool to spread the truth. One small click and masses of real news instead of all this fake news and hate on X (formerly Twitter).
 
@@ -33,22 +33,92 @@ The free world is more at risk than ever. Elon Musk, a villain as foretold in Ja
     - Sign up for an API key at [OpenAI](https://beta.openai.com/signup/).
     - Create a Twitter Developer account and generate API keys at the [Twitter Developer Portal](https://developer.twitter.com/).
 
-4. **Create a `config.py` file** with your API keys:
-    ```python
-    # config.py
-
-    OPENAI_API_KEY = 'your_openai_api_key'
-    TWITTER_API_KEY = 'your_twitter_api_key'
-    TWITTER_API_SECRET_KEY = 'your_twitter_api_secret_key'
-    TWITTER_ACCESS_TOKEN = 'your_twitter_access_token'
-    TWITTER_ACCESS_TOKEN_SECRET = 'your_twitter_access_token_secret'
-    ```
-
 ## Usage
 
-1. **Edit the news URL** in the script:
+1. **Edit the script** to include your API keys and the news URL:
     ```python
-    news_url = 'https://example-news-website.com'  # Replace with a real news website
+    import requests
+    from bs4 import BeautifulSoup
+    import openai
+    import tweepy
+
+    # OpenAI API key
+    openai.api_key = 'YOUR_OPENAI_API_KEY'
+
+    # Twitter API keys
+    api_key = "YOUR_API_KEY"
+    api_secret_key = "YOUR_API_SECRET_KEY"
+    access_token = "YOUR_ACCESS_TOKEN"
+    access_token_secret = "YOUR_ACCESS_TOKEN_SECRET"
+
+    # Authenticate to Twitter
+    auth = tweepy.OAuthHandler(api_key, api_secret_key)
+    auth.set_access_token(access_token, access_token_secret)
+    api = tweepy.API(auth)
+
+    def get_news(url):
+        """
+        Scrapes news articles from the specified URL.
+        """
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        articles = soup.find_all('article')
+        
+        news_list = []
+        for article in articles:
+            title = article.find('h2').text
+            link = article.find('a')['href']
+            summary = article.find('p').text
+            news_list.append({'title': title, 'link': link, 'summary': summary})
+        
+        return news_list
+
+    def generate_description(summary):
+        """
+        Generates a short description using OpenAI API.
+        """
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": f"Create a short description for this article: {summary}"}
+            ]
+        )
+        description = response.choices[0].message['content'].strip()
+        return description
+
+    def generate_tweet(title, link):
+        """
+        Generates a tweet using OpenAI API.
+        """
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": f"Create a short tweet about this article: {title}. Include this link: {link}"}
+            ]
+        )
+        tweet = response.choices[0].message['content'].strip()
+        return tweet
+
+    def post_tweet(tweet):
+        """
+        Posts a tweet using Tweepy.
+        """
+        api.update_status(status=tweet)
+
+    # Main script
+    if __name__ == "__main__":
+        news_url = 'https://example-news-website.com'  # Replace with a real news website
+        news = get_news(news_url)
+        for item in news:
+            description = generate_description(item['summary'])
+            tweet = generate_tweet(item['title'], item['link'])
+            post_tweet(tweet)
+            print(f"Title: {item['title']}")
+            print(f"Link: {item['link']}")
+            print(f"Description: {description}")
+            print(f"Tweet: {tweet}\n")
     ```
 
 2. **Run the script**:
@@ -85,14 +155,19 @@ import requests
 from bs4 import BeautifulSoup
 import openai
 import tweepy
-import config
 
-# Set OpenAI API key
-openai.api_key = config.OPENAI_API_KEY
+# OpenAI API key
+openai.api_key = 'YOUR_OPENAI_API_KEY'
+
+# Twitter API keys
+api_key = "YOUR_API_KEY"
+api_secret_key = "YOUR_API_SECRET_KEY"
+access_token = "YOUR_ACCESS_TOKEN"
+access_token_secret = "YOUR_ACCESS_TOKEN_SECRET"
 
 # Authenticate to Twitter
-auth = tweepy.OAuthHandler(config.TWITTER_API_KEY, config.TWITTER_API_SECRET_KEY)
-auth.set_access_token(config.TWITTER_ACCESS_TOKEN, config.TWITTER_ACCESS_TOKEN_SECRET)
+auth = tweepy.OAuthHandler(api_key, api_secret_key)
+auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 def get_news(url):
@@ -159,14 +234,15 @@ if __name__ == "__main__":
         print(f"Description: {description}")
         print(f"Tweet: {tweet}\n")
 ```
-Contributing
+
+## Contributing
 
 Feel free to submit pull requests or open issues if you find any bugs or have suggestions for improvements.
 
 ## License
+This project is licensed under the Fuck Elon Musk License - In your Face , Bro, In your Face!
 
-This project is licensed under Fuck Elon Musk license - In your Face, Bro!
-## Acknowledgements
+### Acknowledgements
 
 - OpenAI for providing the AI models.
 - Twitter for the API access.
