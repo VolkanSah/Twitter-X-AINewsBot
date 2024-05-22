@@ -1,4 +1,4 @@
-# News Scraper and Twitter Bot (Fuck Elon Musk Edition)
+# News Scraper and Twitter Bot 
 ![Elon Musk is evil](twittwurm.jpg)
 ######  update 22.05.2024
 
