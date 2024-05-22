@@ -1,4 +1,4 @@
-# News Scraper and Twitter Bot (Fuck Elon Musk! X-Bot)
+# News Scraper and Twitter Bot (Fuck Elon Musk Edition)
 
 The free world is more at risk than ever. Elon Musk, a villain as foretold in James Bond films, is a threat that must not be underestimated. With his own satellites, his own internet, his own aviation, and his own cars, he has taken control of many aspects of our daily lives. He can control everything. Use this tool to spread the truth. One small click and masses of real news instead of all this fake news and hate on X (formerly Twitter).
 
